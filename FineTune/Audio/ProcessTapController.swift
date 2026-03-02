@@ -374,7 +374,7 @@ final class ProcessTapController {
         logger.info("[CROSSFADE] Step 1: Reading device volumes for compensation")
 
         var isBluetoothDestination = false
-        if let destDevice = deviceMonitor?.device(for: primaryDeviceUID) {
+        if let destDevice = await deviceMonitor?.device(for: primaryDeviceUID) {
             let transport = destDevice.id.readTransportType()
             isBluetoothDestination = (transport == .bluetooth || transport == .bluetoothLE)
             logger.debug("[CROSSFADE] Destination device: BT=\(isBluetoothDestination)")

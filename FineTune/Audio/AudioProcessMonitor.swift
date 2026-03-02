@@ -274,7 +274,7 @@ final class AudioProcessMonitor {
         processListenerBlocks.removeAll()
     }
 
-    nonisolated deinit {
+    deinit {
         // HAL C functions don't require actor isolation
         if let block = processListListenerBlock {
             var addr = AudioObjectPropertyAddress(

@@ -178,6 +178,16 @@ extension View {
     func vibrancyIcon(_ style: VibrancyIconModifier.VibrancyStyle = .secondary) -> some View {
         modifier(VibrancyIconModifier(style: style))
     }
+    
+    /// Hides scroll indicators when available; no-op on older macOS
+//    func hideScrollIndicators() -> some View {
+//        if #available(macOS 15, *) {
+//            return AnyView(self.scrollIndicators(.never))
+//        } else {
+//            return AnyView(self)
+//        }
+//    }
+
 }
 
 // MARK: - Previews
@@ -204,7 +214,6 @@ extension View {
         }
         .hoverableRow()
     }
-    .padding()
     .darkGlassBackground()
     .environment(\.colorScheme, .dark)
 }
@@ -217,7 +226,6 @@ extension View {
         Text("Apps")
             .sectionHeaderStyle()
     }
-    .padding()
     .darkGlassBackground()
     .environment(\.colorScheme, .dark)
 }
@@ -228,7 +236,6 @@ extension View {
         Text("75%").percentageStyle()
         Text("0%").percentageStyle()
     }
-    .padding()
     .darkGlassBackground()
     .environment(\.colorScheme, .dark)
 }
@@ -250,7 +257,6 @@ extension View {
         }
         .iconButtonStyle(isActive: false)
     }
-    .padding()
     .darkGlassBackground()
     .environment(\.colorScheme, .dark)
 }
@@ -267,7 +273,6 @@ extension View {
         }
         .glassButtonStyle()
     }
-    .padding()
     .darkGlassBackground()
     .environment(\.colorScheme, .dark)
 }
@@ -298,7 +303,6 @@ extension View {
                 .font(.caption)
         }
     }
-    .padding()
     .darkGlassBackground()
     .environment(\.colorScheme, .dark)
 }

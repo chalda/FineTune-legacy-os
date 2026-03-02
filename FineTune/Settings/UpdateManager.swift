@@ -21,7 +21,7 @@ final class UpdateManager: NSObject, ObservableObject {
         // Start updater to enable manual checks, but don't trigger auto-check UI
         try? updaterController.updater.start()
 
-        // Observe when updates can be checked
+            // Observe when updates can be checked
         updaterController.updater.publisher(for: \.canCheckForUpdates)
             .receive(on: DispatchQueue.main)
             .assign(to: &$canCheckForUpdates)
