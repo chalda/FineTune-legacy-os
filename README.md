@@ -9,6 +9,14 @@
 </p>
 
 <p align="center">
+  <strong>This fork works for macOS Sonoma (14).</strong>
+  <br/>
+  <strong>Haven't checked lower versions but very doable.</strong>
+  <br/>
+  <i>README will need to be updated<i>
+</p>
+
+<p align="center">
   <a href="https://github.com/ronitsingh10/FineTune/releases/latest"><img src="https://img.shields.io/github/v/release/ronitsingh10/FineTune" alt="Latest Release"></a>
   <a href="https://github.com/ronitsingh10/FineTune/releases"><img src="https://img.shields.io/github/downloads/ronitsingh10/FineTune/total" alt="Downloads"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-GPLv3-blue.svg" alt="License: GPL v3"></a>
