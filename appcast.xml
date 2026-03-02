@@ -20,7 +20,7 @@
         sparkle:edSignature="ED_SIGNATURE_HERE"
         length="FILE_SIZE_BYTES"
         type="application/octet-stream"/>
-      <sparkle:minimumSystemVersion>15.0</sparkle:minimumSystemVersion>
+      <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
     </item>
     -->
         <item>

@@ -46,7 +46,7 @@ struct PopoverHost<Content: View>: NSViewRepresentable {
             self._isPresented = isPresented
         }
 
-        func showPanel<V: View>(from parentView: NSView, content: () -> V) {
+        @MainActor func showPanel<V: View>(from parentView: NSView, content: () -> V) {
             guard let parentWindow = parentView.window else { return }
 
             // Create borderless panel that doesn't steal focus
@@ -118,7 +118,7 @@ struct PopoverHost<Content: View>: NSViewRepresentable {
             }
         }
 
-        func updateContent<V: View>(_ content: () -> V) {
+        @MainActor func updateContent<V: View>(_ content: () -> V) {
             guard let hostingView = hostingView else { return }
             // Update existing hosting view's rootView instead of replacing it
             // This allows SwiftUI to perform efficient diffing without flickering
@@ -130,7 +130,7 @@ struct PopoverHost<Content: View>: NSViewRepresentable {
             }
         }
 
-        func dismissPanel() {
+        @MainActor func dismissPanel() {
             if let monitor = localEventMonitor {
                 NSEvent.removeMonitor(monitor)
                 localEventMonitor = nil

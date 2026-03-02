@@ -116,7 +116,6 @@ struct MenuBarPopupView: View {
         .padding(DesignTokens.Spacing.lg)
         .frame(width: DesignTokens.Dimensions.popupWidth)
         .darkGlassBackground()
-        .environment(\.colorScheme, .dark)
         .onAppear {
             updateSortedDevices()
             updateSortedInputDevices()
@@ -255,7 +254,7 @@ struct MenuBarPopupView: View {
             .buttonStyle(.plain)
             .font(DesignTokens.Typography.caption)
             .foregroundStyle(DesignTokens.Colors.textSecondary)
-            .glassButtonStyle()
+           // .glassButtonStyle()
         }
     }
 
@@ -365,10 +364,10 @@ struct MenuBarPopupView: View {
         .background(
             RoundedRectangle(cornerRadius: DesignTokens.Dimensions.buttonRadius + 3)
                 .fill(.white.opacity(0.05))
-                .overlay(
-                    RoundedRectangle(cornerRadius: DesignTokens.Dimensions.buttonRadius + 3)
-                        .strokeBorder(.white.opacity(0.1), lineWidth: 0.5)
-                )
+//                .overlay(
+//                    RoundedRectangle(cornerRadius: DesignTokens.Dimensions.buttonRadius + 3)
+//                        .strokeBorder(.white.opacity(0.1), lineWidth: 0.5)
+//                )
         )
     }
 
@@ -384,6 +383,7 @@ struct MenuBarPopupView: View {
                 devicesContent
             }
             .scrollIndicators(.never)
+            //  .hideScrollIndicators()
             .frame(height: deviceScrollHeight)
         } else {
             devicesContent
@@ -398,40 +398,65 @@ struct MenuBarPopupView: View {
                     ? deviceVolumeMonitor.defaultInputDeviceID
                     : deviceVolumeMonitor.defaultDeviceID
                 ForEach(Array(editableDeviceOrder.enumerated()), id: \.element.uid) { index, device in
-                    DeviceEditRow(
-                        device: device,
-                        priorityIndex: index,
-                        isDefault: device.id == defaultDeviceID,
-                        isInputDevice: showingInputDevices,
-                        deviceCount: editableDeviceOrder.count,
-                        onReorder: { newIndex in
-                            guard let fromIndex = editableDeviceOrder.firstIndex(where: { $0.uid == device.uid }) else { return }
-                            guard newIndex != fromIndex, newIndex >= 0, newIndex < editableDeviceOrder.count else { return }
-                            withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
-                                editableDeviceOrder.move(
-                                    fromOffsets: IndexSet(integer: fromIndex),
-                                    toOffset: newIndex > fromIndex ? newIndex + 1 : newIndex
-                                )
+                    if #available(macOS 15, *) {
+                        DeviceEditRow(
+                            device: device,
+                            priorityIndex: index,
+                            isDefault: device.id == defaultDeviceID,
+                            isInputDevice: showingInputDevices,
+                            deviceCount: editableDeviceOrder.count,
+                            onReorder: { newIndex in
+                                guard let fromIndex = editableDeviceOrder.firstIndex(where: { $0.uid == device.uid }) else { return }
+                                guard newIndex != fromIndex, newIndex >= 0, newIndex < editableDeviceOrder.count else { return }
+                                withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
+                                    editableDeviceOrder.move(
+                                        fromOffsets: IndexSet(integer: fromIndex),
+                                        toOffset: newIndex > fromIndex ? newIndex + 1 : newIndex
+                                    )
+                                }
                             }
+                        )
+                        .draggable(device.uid) {
+                            Text(device.name)
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 4)
+                                .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 6))
                         }
-                    )
-                    .draggable(device.uid) {
-                        Text(device.name)
-                            .padding(.horizontal, 8)
-                            .padding(.vertical, 4)
-                            .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 6))
-                    }
-                    .dropDestination(for: String.self) { droppedUIDs, _ in
-                        guard let droppedUID = droppedUIDs.first,
-                              let fromIndex = editableDeviceOrder.firstIndex(where: { $0.uid == droppedUID }),
-                              let toIndex = editableDeviceOrder.firstIndex(where: { $0.uid == device.uid }),
-                              fromIndex != toIndex else { return false }
-                        withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
-                            editableDeviceOrder.move(fromOffsets: IndexSet(integer: fromIndex), toOffset: toIndex > fromIndex ? toIndex + 1 : toIndex)
+                        .dropDestination(for: String.self) { droppedUIDs, _ in
+                            guard let droppedUID = droppedUIDs.first,
+                                  let fromIndex = editableDeviceOrder.firstIndex(where: { $0.uid == droppedUID }),
+                                  let toIndex = editableDeviceOrder.firstIndex(where: { $0.uid == device.uid }),
+                                  fromIndex != toIndex else { return false }
+                            withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
+                                editableDeviceOrder.move(fromOffsets: IndexSet(integer: fromIndex), toOffset: toIndex > fromIndex ? toIndex + 1 : toIndex)
+                            }
+                            return true
                         }
-                        return true
+                        .contentShape(Rectangle())
+                    } else {
+                        DeviceEditRow(
+                            device: device,
+                            priorityIndex: index,
+                            isDefault: device.id == defaultDeviceID,
+                            isInputDevice: showingInputDevices,
+                            deviceCount: editableDeviceOrder.count,
+                            onReorder: { newIndex in
+                                guard let fromIndex = editableDeviceOrder.firstIndex(where: { $0.uid == device.uid }) else { return }
+                                guard newIndex != fromIndex, newIndex >= 0, newIndex < editableDeviceOrder.count else { return }
+                                withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
+                                    editableDeviceOrder.move(
+                                        fromOffsets: IndexSet(integer: fromIndex),
+                                        toOffset: newIndex > fromIndex ? newIndex + 1 : newIndex
+                                    )
+                                }
+                            }
+                        )
+                        .contentShape(Rectangle())
+//                        .onDrag {
+//                            NSItemProvider(object: NSString(string: device.uid))
+//                        }
                     }
-                }
+                 }
             } else if showingInputDevices {
                 ForEach(sortedInputDevices) { device in
                     InputDeviceRow(
@@ -504,6 +529,7 @@ struct MenuBarPopupView: View {
                     appsContent(scrollProxy: scrollProxy)
                 }
                 .scrollIndicators(.never)
+                //  .hideScrollIndicators()
                 .frame(height: appScrollHeight)
             } else {
                 appsContent(scrollProxy: scrollProxy)

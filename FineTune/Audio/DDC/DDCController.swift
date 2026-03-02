@@ -1,7 +1,6 @@
 // FineTune/Audio/DDC/DDCController.swift
 // High-level DDC display enumeration, CoreAudio matching, and volume control
 
-#if !APP_STORE
 
 import AppKit
 import AudioToolbox
@@ -38,7 +37,7 @@ final class DDCController {
         self.settingsManager = settingsManager
     }
 
-    nonisolated deinit {
+    deinit {
         if let obs = displayChangeObserver {
             NotificationCenter.default.removeObserver(obs)
         }
@@ -70,12 +69,12 @@ final class DDCController {
     }
 
     /// Gets the cached DDC volume for a device (0-100), or nil if not DDC-backed.
-    func getVolume(for deviceID: AudioDeviceID) -> Int? {
+        @MainActor func getVolume(for deviceID: AudioDeviceID) -> Int? {
         cachedVolumes[deviceID]
     }
 
     /// Sets the DDC volume for a device (0-100). Debounced to avoid I2C bus spam.
-    func setVolume(for deviceID: AudioDeviceID, to volume: Int) {
+        @MainActor func setVolume(for deviceID: AudioDeviceID, to volume: Int) {
         let clamped = max(0, min(100, volume))
         cachedVolumes[deviceID] = clamped
 
@@ -99,7 +98,7 @@ final class DDCController {
     }
 
     /// Software mute: saves current volume, sets to 0.
-    func mute(for deviceID: AudioDeviceID) {
+        @MainActor func mute(for deviceID: AudioDeviceID) {
         guard let uid = deviceUIDs[deviceID] else { return }
         let currentVolume = cachedVolumes[deviceID] ?? 50
         if currentVolume > 0 {
@@ -112,7 +111,7 @@ final class DDCController {
     }
 
     /// Software unmute: restores saved volume.
-    func unmute(for deviceID: AudioDeviceID) {
+        @MainActor func unmute(for deviceID: AudioDeviceID) {
         guard let uid = deviceUIDs[deviceID] else { return }
         let savedVolume = settingsManager.getDDCSavedVolume(for: uid) ?? 50
         settingsManager.setDDCMuteState(for: uid, to: false)
@@ -120,7 +119,7 @@ final class DDCController {
     }
 
     /// Returns software mute state.
-    func isMuted(for deviceID: AudioDeviceID) -> Bool {
+        @MainActor func isMuted(for deviceID: AudioDeviceID) -> Bool {
         guard let uid = deviceUIDs[deviceID] else { return false }
         return settingsManager.getDDCMuteState(for: uid)
     }
@@ -141,7 +140,7 @@ final class DDCController {
 
             // 1. Discover all DCPAVServiceProxy entries and create DDC services
             let discovered = DDCService.discoverServices()
-            self.logger.info("DDC probe: found \(discovered.count) DCPAVServiceProxy entries")
+            self.logger.info("DDC probe: foxund \(discovered.count) DCPAVServiceProxy entries")
             guard !discovered.isEmpty else {
                 Task { @MainActor [weak self] in
                     self?.ddcBackedDevices = []
@@ -374,4 +373,4 @@ final class DDCController {
     }
 }
 
-#endif
+

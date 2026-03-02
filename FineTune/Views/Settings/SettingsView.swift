@@ -27,6 +27,7 @@ struct SettingsView: View {
             }
         }
         .scrollIndicators(.never)
+        //  .hideScrollIndicators()
     }
 
     // MARK: - General Section

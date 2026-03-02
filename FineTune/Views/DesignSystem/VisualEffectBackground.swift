@@ -39,9 +39,18 @@ extension View {
     /// Applies a dark glass background using NSVisualEffectView
     /// The primary popup container style - darker to make floating rows pop
     func darkGlassBackground() -> some View {
-        self
-            .background(Color.popupBackgroundOverlay)
-            .background(VisualEffectBackground(material: .hudWindow, blendingMode: .behindWindow))
+        Group {
+            if #available(macOS 15, *) {
+                self
+                    .background(Color.popupBackgroundOverlay)
+                    .background(VisualEffectBackground(material: .hudWindow, blendingMode: .behindWindow))
+            } else {
+                // Fallback for older macOS: use native SwiftUI materials instead of embedding NSVisualEffectView
+                self
+                    .background(Color.popupBackgroundOverlay)
+                    .background(.ultraThinMaterial)
+            }
+        }
     }
 
     /// Applies EQ panel glass background (recessed style)

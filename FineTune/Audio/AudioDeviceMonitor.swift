@@ -223,7 +223,7 @@ final class AudioDeviceMonitor {
         }
     }
 
-    nonisolated deinit {
+    deinit {
         // HAL C functions don't require actor isolation
         if let block = deviceListListenerBlock {
             var addr = AudioObjectPropertyAddress(

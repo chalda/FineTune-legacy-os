@@ -124,6 +124,7 @@ struct EditablePercentage: View {
         isEditing = false
     }
 
+    @MainActor
     private func updateScreenFrame(from globalFrame: CGRect) {
         componentFrame = screenFrame(from: globalFrame)
     }
@@ -132,7 +133,7 @@ struct EditablePercentage: View {
 // MARK: - Preference Key for Frame Tracking
 
 private struct FramePreferenceKey: PreferenceKey {
-    static var defaultValue: CGRect = .zero
+    static let defaultValue: CGRect = .zero
     static func reduce(value: inout CGRect, nextValue: () -> CGRect) {
         value = nextValue()
     }

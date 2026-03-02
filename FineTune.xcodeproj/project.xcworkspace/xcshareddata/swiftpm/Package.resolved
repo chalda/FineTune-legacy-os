@@ -1,13 +1,13 @@
 {
-  "originHash" : "d523804ff54f10a55bc8d98cf81f261a66fc51e6e6fa959bc979d9c395393d66",
+  "originHash" : "601b652e431611e9d043060cb07c93c97aeac7547916c3df0368288a03e9373a",
   "pins" : [
     {
-      "identity" : "fluidmenubarextra",
+      "identity" : "fluid-menu-bar-extra",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/wadetregaskis/FluidMenuBarExtra",
+      "location" : "https://github.com/rurza/fluid-menu-bar-extra",
       "state" : {
-        "revision" : "3ce81bd0e5ab0ae5b027076482f4bd86be30162c",
-        "version" : "1.5.1"
+        "branch" : "main",
+        "revision" : "eb6c9a0b64ead454ddb75cf5d15d67110ba650ef"
       }
     },
     {
