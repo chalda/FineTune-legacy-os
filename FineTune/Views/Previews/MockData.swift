@@ -52,26 +52,45 @@ enum MockData {
             id: AudioDeviceID(100),
             uid: "BuiltInSpeakerDevice",
             name: "MacBook Pro Speakers",
-            icon: NSImage(systemSymbolName: "laptopcomputer", accessibilityDescription: nil)
+            icon: NSImage(systemSymbolName: "laptopcomputer", accessibilityDescription: nil),
+            supportsAutoEQ: false
         ),
         AudioDevice(
             id: AudioDeviceID(101),
             uid: "AirPodsProDevice",
             name: "AirPods Pro",
-            icon: NSImage(systemSymbolName: "airpodspro", accessibilityDescription: nil)
+            icon: NSImage(systemSymbolName: "airpodspro", accessibilityDescription: nil),
+            supportsAutoEQ: true
         ),
         AudioDevice(
             id: AudioDeviceID(102),
             uid: "HDMIDisplayDevice",
             name: "LG UltraFine Display",
-            icon: NSImage(systemSymbolName: "display", accessibilityDescription: nil)
+            icon: NSImage(systemSymbolName: "display", accessibilityDescription: nil),
+            supportsAutoEQ: false
         ),
         AudioDevice(
             id: AudioDeviceID(103),
             uid: "HomePodDevice",
             name: "Living Room HomePod",
-            icon: NSImage(systemSymbolName: "homepod", accessibilityDescription: nil)
+            icon: NSImage(systemSymbolName: "homepod", accessibilityDescription: nil),
+            supportsAutoEQ: false
         )
+    ]
+
+    // MARK: - Sample Paired Bluetooth Devices
+
+    static let samplePairedDevices: [PairedBluetoothDevice] = [
+        PairedBluetoothDevice(
+            id: "AA:BB:CC:DD:EE:FF",
+            name: "Sony WH-1000XM5",
+            icon: NSImage(systemSymbolName: "headphones", accessibilityDescription: nil)
+        ),
+        PairedBluetoothDevice(
+            id: "11:22:33:44:55:66",
+            name: "AirPods Pro",
+            icon: NSImage(systemSymbolName: "airpodspro", accessibilityDescription: nil)
+        ),
     ]
 
     // MARK: - Default Device

@@ -10,6 +10,7 @@
 		2D5605BC2F54CF8D0030F7A3 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D5605BB2F54CF8D0030F7A3 /* SwiftUI.framework */; };
 		7980FFE92F261AA200AF5F85 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = 79SPARK012F0600000008D52 /* Sparkle */; };
 		7988AE522F1CC55900E6D086 /* fineTuneIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 7988AE512F1CC55900E6D086 /* fineTuneIcon.icon */; };
+		79B1000B2F35000000000002 /* IOBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79B1000A2F35000000000001 /* IOBluetooth.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		79C80E5A2F12FF510021442B /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 79SNAP0012F0600000008D52A /* SnapshotTesting */; };
 		79FLUID0012F0600000008D52 /* FluidMenuBarExtra in Frameworks */ = {isa = PBXBuildFile; productRef = 79FLUID0022F0600000008D52 /* FluidMenuBarExtra */; settings = {ATTRIBUTES = (Required, ); }; };
 /* End PBXBuildFile section */
@@ -37,6 +38,7 @@
 		79A607AF2F05C9E00008D52A /* FineTune.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FineTune.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		79A607BC2F05C9E10008D52A /* FineTuneTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FineTuneTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		79A607C62F05C9E10008D52A /* FineTuneUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FineTuneUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		79B1000A2F35000000000001 /* IOBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOBluetooth.framework; path = System/Library/Frameworks/IOBluetooth.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -75,6 +77,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79B1000B2F35000000000002 /* IOBluetooth.framework in Frameworks */,
 				7980FFE92F261AA200AF5F85 /* Sparkle in Frameworks */,
 				79FLUID0012F0600000008D52 /* FluidMenuBarExtra in Frameworks */,
 				2D5605BC2F54CF8D0030F7A3 /* SwiftUI.framework in Frameworks */,
@@ -99,12 +102,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2D5605BA2F54CF8C0030F7A3 /* Frameworks */ = {
+		795C94762F4FF3BC004F0492 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
-				2D5605BB2F54CF8D0030F7A3 /* SwiftUI.framework */,
+				79B1000A2F35000000000001 /* IOBluetooth.framework */,
 			);
-			name = Frameworks;
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		79A607A62F05C9E00008D52A = {
@@ -115,7 +118,7 @@
 				79A607C92F05C9E10008D52A /* FineTuneUITests */,
 				79A607B02F05C9E00008D52A /* Products */,
 				7988AE512F1CC55900E6D086 /* fineTuneIcon.icon */,
-				2D5605BA2F54CF8C0030F7A3 /* Frameworks */,
+				795C94762F4FF3BC004F0492 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
