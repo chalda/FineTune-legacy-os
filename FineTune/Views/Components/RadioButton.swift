@@ -10,7 +10,7 @@ struct RadioButton: View {
 
     var body: some View {
         Button(action: action) {
-            Image(systemName: isSelected ? "inset.filled.circle" : "circle")
+            Image(systemName: isSelected ? "circle.inset.filled" : "circle")
                 .font(.system(size: 14))
                 .symbolRenderingMode(isSelected ? .monochrome : .hierarchical)
                 .foregroundStyle(isSelected ? DesignTokens.Colors.defaultDevice : buttonColor)
