@@ -9,11 +9,11 @@
 </p>
 
 <p align="center">
-  <strong>This fork works for macOS Sonoma (14).</strong>
+  <strong>This fork works for macOS Sonoma (14). The latest release build might work for Ventura. let me know if you have issues.</strong>
   <br/>
-  <strong>Haven't checked lower versions but very doable.</strong>
+  <strong>Haven't checked lower versions but might be doable.</strong>
   <br/>
-  <i>README will need to be updated<i>
+  <i>README is the same as original. Download the release build instead of using homebrew if you need support for Sonoma or Ventura.<i>
 </p>
 
 <p align="center">
