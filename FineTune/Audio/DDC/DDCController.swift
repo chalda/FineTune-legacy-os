@@ -1,6 +1,8 @@
 // FineTune/Audio/DDC/DDCController.swift
 // High-level DDC display enumeration, CoreAudio matching, and volume control
 
+#if !APP_STORE
+
 
 import AppKit
 import AudioToolbox
@@ -374,3 +376,4 @@ final class DDCController {
 }
 
 
+#endif

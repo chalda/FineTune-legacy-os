@@ -1,6 +1,7 @@
 // FineTune/Audio/DDC/DDCService.swift
 // Low-level DDC/CI communication via IOKit private APIs
 
+#if !APP_STORE
 
 import Foundation
 import IOKit
@@ -314,3 +315,4 @@ extension DDCService {
     }
 }
 
+#endif

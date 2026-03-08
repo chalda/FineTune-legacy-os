@@ -13,9 +13,9 @@ final class AudioEngine {
     let volumeState: VolumeState
     let settingsManager: SettingsManager
 
-
+    #if !APP_STORE
     let ddcController: DDCController
-
+    #endif
 
     private var taps: [pid_t: ProcessTapController] = [:]
     private var appliedPIDs: Set<pid_t> = []
@@ -54,10 +54,14 @@ final class AudioEngine {
     /// Whether a device supports software volume control (CoreAudio or DDC).
     /// Devices without volume control still appear in the list but without slider/mute UI.
     func hasVolumeControl(for deviceID: AudioDeviceID) -> Bool {
+        #if !APP_STORE
         // Before DDC probe completes, assume all devices have volume control
         // to avoid premature hiding of controls on monitors that may be DDC-backed
         if !ddcController.probeCompleted { return true }
         return deviceID.hasOutputVolumeControl() || ddcController.isDDCBacked(deviceID)
+        #else
+        return deviceID.hasOutputVolumeControl()
+        #endif
     }
 
     var inputDevices: [AudioDevice] {
@@ -167,21 +171,24 @@ final class AudioEngine {
         self.settingsManager = manager
         self.volumeState = VolumeState(settingsManager: manager)
 
-
+        #if !APP_STORE
         let ddc = DDCController(settingsManager: manager)
         self.ddcController = ddc
         self.deviceVolumeMonitor = DeviceVolumeMonitor(deviceMonitor: deviceMonitor, settingsManager: manager, ddcController: ddc)
-       
+        #else
+        self.deviceVolumeMonitor = DeviceVolumeMonitor(deviceMonitor: deviceMonitor, settingsManager: manager)
+        #endif
+
         Task { @MainActor in
             processMonitor.start()
             deviceMonitor.start()
 
-
+            #if !APP_STORE
             ddc.onProbeCompleted = { [weak self] in
                 self?.deviceVolumeMonitor.refreshAfterDDCProbe()
             }
             ddc.start()
-
+            #endif
 
             // Start device volume monitor AFTER deviceMonitor.start() populates devices
             // This fixes the race condition where volumes were read before devices existed
